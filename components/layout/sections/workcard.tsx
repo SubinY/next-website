@@ -71,7 +71,7 @@ export const WorkCardSeciton = ({ data }: any) => {
       .reverse() || [];
 
   return (
-    <section id="wordcard" className="max-w-[75%] mx-auto py-24 sm:py-32">
+    <section id="work" className="max-w-[75%] mx-auto py-24 sm:py-32">
       <div className="relative -top-10">
         <p className="text-xl md:text-2xl">
           This is my personal workstation. I record and output content in three

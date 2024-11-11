@@ -1,47 +1,29 @@
-import { BenefitsSection } from "@/components/layout/sections/benefits";
-import { CommunitySection } from "@/components/layout/sections/community";
-import { ContactSection } from "@/components/layout/sections/contact";
-import { FAQSection } from "@/components/layout/sections/faq";
-import { FeaturesSection } from "@/components/layout/sections/features";
+
 import { FooterSection } from "@/components/layout/sections/footer";
-import { HeroSection } from "@/components/layout/sections/hero";
-import { PricingSection } from "@/components/layout/sections/pricing";
-import { ServicesSection } from "@/components/layout/sections/services";
-import { SponsorsSection } from "@/components/layout/sections/sponsors";
-import { TeamSection } from "@/components/layout/sections/team";
-import { TestimonialSection } from "@/components/layout/sections/testimonial";
 import { ProfileSection } from "@/components/layout/sections/profile";
 import { BgMotionSection } from "@/components/layout/sections/bgmotion";
 import { WorkCardSeciton } from "@/components/layout/sections/workcard";
 import { SkillSection } from "@/components/layout/sections/skill";
 import { ProjectSection } from "@/components/layout/sections/project";
+import { EmptySection } from "@/components/layout/sections/empty";
 import { findRunData } from "@/server/controller/run";
 
 export const metadata = {
-  title: "Shadcn - Landing template",
-  description: "Free Shadcn landing page for developers",
+  title: "GS - fullstack engineer",
+  description: "gymsummer website",
   openGraph: {
     type: "website",
-    url: "https://github.com/nobruf/shadcn-landing-page.git",
-    title: "Shadcn - Landing template",
+    url: "https://github.com/subinY/next-website",
+    title: "GS - website",
     description: "Free Shadcn landing page for developers",
-    images: [
-      {
-        url: "https://res.cloudinary.com/dbzv9xfjp/image/upload/v1723499276/og-images/shadcn-vue.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Shadcn - Landing template",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: "https://github.com/nobruf/shadcn-landing-page.git",
-    title: "Shadcn - Landing template",
-    description: "Free Shadcn landing page for developers",
-    images: [
-      "https://res.cloudinary.com/dbzv9xfjp/image/upload/v1723499276/og-images/shadcn-vue.jpg",
-    ],
+    // images: [
+    //   {
+    //     url: "https://res.cloudinary.com/dbzv9xfjp/image/upload/v1723499276/og-images/shadcn-vue.jpg",
+    //     width: 1200,
+    //     height: 630,
+    //     alt: "GS - website",
+    //   },
+    // ],
   },
 };
 
@@ -56,17 +38,7 @@ export default async function Home() {
       <WorkCardSeciton data={data} />
       <SkillSection />
       <ProjectSection />
-      <HeroSection />
-      <SponsorsSection />
-      <BenefitsSection />
-      <FeaturesSection />
-      <ServicesSection />
-      <TestimonialSection />
-      <TeamSection />
-      <CommunitySection />
-      <PricingSection />
-      <ContactSection />
-      <FAQSection />
+      <EmptySection />
       <FooterSection />
     </>
   );

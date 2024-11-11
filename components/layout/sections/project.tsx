@@ -11,8 +11,9 @@ import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 
 const Items = [
   {
-    name: "前后台全栈项目",
-    description: "30分钟开发部署一个管理后台项目,基于Koa搭建的前后台全栈项目，包含官网、权限管理后台。",
+    name: "FullStack Admin",
+    description:
+      "A full-stack front-end and back-end project built based on Koa, develop and deploy a management backend project in 30 minutes",
     href: "http://101.33.228.57:5000",
     cta: "web",
     href2: "http://101.33.228.57:5001",
@@ -42,9 +43,9 @@ const Items = [
     // ),
   },
   {
-    name: "前端物料平台",
+    name: "FrontEnd Material Platform",
     description:
-      "多端统一物料平台、可视化UI界面、配套的命令帮助团队快速开发物料，管理项目等",
+      "Multi-client unified material platform, visual UI interface, and supporting commands help teams quickly develop materials",
     href: "http://101.33.228.57",
     cta: "Learn more",
     className: "col-span-3 lg:col-span-2 lg:row-span-3",
@@ -110,20 +111,43 @@ const Items = [
     ),
   },
   {
-    name: "Integrations",
-    description: "Supports 100+ integrations and counting.",
-    href: "#",
-    cta: "Learn more",
+    name: "Diary Robot",
+    description:
+      "Input scattered text on WeChat, and use AI to generate a specified diary template and output it to my diary website automatically",
+    href: "https://github.com/SubinY",
+    cta: "primary",
     className: "col-span-3 lg:col-span-1",
-    background: <img className="absolute -right-20 -top-20 opacity-60" />,
+    background: (
+      <div className="flex w-full items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl absolute h-[80%] border-none transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_10%,#000_100%)] group-hover:scale-105">
+        <Image
+          src="/screenshot/diarybot.png"
+          height="700"
+          width="1400"
+          loading="lazy"
+          className="object-left-top"
+          alt="fullstack"
+        />
+      </div>
+    ),
   },
   {
-    name: "转手写平台",
-    description: "转写各种语言为手写字体，建设中。。。",
+    name: "handwrite web",
+    description: "Support handwritten fonts and custom fonts, in building...",
     href: "https://handwrite.gymsummer.com",
     cta: "Learn more",
     className: "col-span-3 lg:col-span-1",
-    background: <img className="absolute -right-20 -top-20 opacity-60" />,
+    background: (
+      <div className="flex w-full items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl absolute h-[80%] border-none transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_10%,#000_100%)] group-hover:scale-105">
+        <Image
+          src="/screenshot/handwrite.png"
+          height="700"
+          width="1400"
+          loading="lazy"
+          className="object-left-top"
+          alt="fullstack"
+        />
+      </div>
+    ),
   },
   //   {
   //     Icon: CalendarIcon,
@@ -140,19 +164,21 @@ export function ProjectSection() {
   const { controls, ref, variants } = useIntersectionObserver();
 
   return (
-    <motion.div
-      ref={ref}
-      variants={variants}
-      initial="hidden"
-      animate={controls}
-    >
-      <section className="w-full px-4 lg:px-8 xl:px-32 2xl:px-44 relative z-10 my-4 py-12 sm:py-16">
-        <BentoGrid>
-          {Items.map((item, idx) => (
-            <BentoCard key={idx} {...item} />
-          ))}
-        </BentoGrid>
-      </section>
-    </motion.div>
+    <section id="project">
+      <motion.div
+        ref={ref}
+        variants={variants}
+        initial="hidden"
+        animate={controls}
+      >
+        <section className="w-full px-4 lg:px-8 xl:px-32 2xl:px-44 relative z-10 my-4 py-12 sm:py-16">
+          <BentoGrid>
+            {Items.map((item, idx) => (
+              <BentoCard key={idx} {...item} />
+            ))}
+          </BentoGrid>
+        </section>
+      </motion.div>
+    </section>
   );
 }

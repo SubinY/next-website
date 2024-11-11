@@ -9,7 +9,7 @@ import Link from "next/link";
 import { routeList } from "../config";
 
 export const ProfileSection = () => {
-  const words = ["GYM SUMMER", "可以叫我阿占"];
+  const words = ["GYM SUMMER", "Subin"];
 
   const durationCalc = useCallback(
     (duration: number) => ({ "--duration": duration } as unknown),

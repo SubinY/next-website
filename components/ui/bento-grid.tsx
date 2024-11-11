@@ -71,12 +71,12 @@ const BentoCard = ({
         "pointer-events-none absolute bottom-0 flex w-full translate-y-10 transform-gpu flex-row items-center p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
       )}
     >
-      <Button variant="ghost" asChild size="sm" className="pointer-events-auto">
+      {href && <Button variant="ghost" asChild size="sm" className="pointer-events-auto">
           <a href={href} target="_blank">
             {cta}
             <ArrowRightIcon className="ml-2 h-4 w-4" />
           </a>
-      </Button>
+      </Button>}
       {href2 && <Button variant="ghost" asChild size="sm" className="pointer-events-auto ml-4">
           <a href={href2} target="_blank">
             {cta2}

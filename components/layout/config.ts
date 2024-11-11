@@ -5,23 +5,23 @@ interface RouteProps {
 
 export const routeList: RouteProps[] = [
   {
-    href: "#testimonials",
+    href: "#work",
     label: "Web Development",
   },
   {
-    href: "#team",
+    href: "#project",
     label: "Full Stack Development",
   },
   {
-    href: "#contact",
+    href: "#empty",
     label: "Body Builder",
   },
   {
-    href: "#faq",
+    href: "#empty",
     label: "Jazz Drum Teacher",
   },
-  {
-    href: "#faq",
-    label: "A-share Killer",
-  },
+  // {
+  //   href: "#",
+  //   label: "A-share Killer",
+  // },
 ];
