@@ -52,7 +52,7 @@ const BentoCard = ({
   relateId?: string[];
 }) => {
   useEffect(() => {
-    if (id && relateId?.length) {
+    if (typeof document !== 'undefined' && id && relateId?.length) {
       const startElement = document.getElementById(id);
       const endElements = relateId.map((endId) =>
         document.getElementById(endId)
@@ -64,7 +64,7 @@ const BentoCard = ({
           })
       );
     }
-  }, []);
+  }, [id, relateId]);
 
   return (
     <div
