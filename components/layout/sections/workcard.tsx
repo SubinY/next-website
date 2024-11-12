@@ -8,24 +8,6 @@ import { Tooltip as ReactTooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import React from "react";
 
-const cdata = [
-  {
-    date: "2024-01-01",
-    count: 0,
-    level: 1,
-  },
-  {
-    date: "2024-08-02",
-    count: 16,
-    level: 4,
-  },
-  {
-    date: "2024-11-29",
-    count: 11,
-    level: 3,
-  },
-];
-
 const theme = {
   light: ["hsl(27, 0%, 100%)", "hsl(27, 100%, 61%)"],
 };
@@ -59,9 +41,18 @@ function getLevel(metre: number): number {
   }
 }
 
-export const WorkCardSeciton = ({ data }: any) => {
+export const WorkCardSeciton = ({ rData, wData }: any) => {
+  const workData =
+    [{ date: "2024-07-08", overTimeDuration: -1 }, ...wData]
+      ?.map((item: any) => ({
+        ...item,
+        level:
+          item.overTimeDuration === -1 ? 0 : item.overTimeDuration <= 8 ? 1 : 4, // 今天不统计
+        count: 1,
+      })) || [];
+
   const runData =
-    data
+    rData
       ?.map((item: any) => ({
         ...item,
         date: dayjs(+item.endTime).format("YYYY-MM-DD"),
@@ -81,6 +72,23 @@ export const WorkCardSeciton = ({ data }: any) => {
           </Highlight>
         </p>
       </div>
+      <p
+        onClick={() => {
+          const options = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              uuid: process.env.UUID || '',
+            },
+            body: JSON.stringify({ status: 0 }), // 如果是JSON格式
+            // 或者如果是表单数据：
+            // body: new URLSearchParams(formData).toString()
+          };
+          fetch("/api/work", options);
+        }}
+      >
+        sdfasdf
+      </p>
       <div className="flex gap-10">
         <div className="flex-1 min-w-[40%] flex justify-center items-center flex-col">
           <HyperText
@@ -88,8 +96,10 @@ export const WorkCardSeciton = ({ data }: any) => {
             text="Working"
           />
           <ActivityCalendar
-            data={cdata}
+            data={workData}
             theme={theme}
+            weekStart={1}
+            showWeekdayLabels={["mon"]}
             renderBlock={(block, activity) =>
               React.cloneElement(block, {
                 "data-tooltip-id": "react-tooltip",
@@ -107,6 +117,8 @@ export const WorkCardSeciton = ({ data }: any) => {
             <ActivityCalendar
               data={runData}
               theme={runTheme}
+              weekStart={1}
+              showWeekdayLabels={["mon"]}
               style={{ width: "100%" }}
               renderBlock={(block, activity: any) =>
                 React.cloneElement(block, {

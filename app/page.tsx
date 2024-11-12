@@ -7,6 +7,7 @@ import { SkillSection } from "@/components/layout/sections/skill";
 import { ProjectSection } from "@/components/layout/sections/project";
 import { EmptySection } from "@/components/layout/sections/empty";
 import { findRunData } from "@/server/controller/run";
+import { findWorkData } from "@/server/controller/work";
 
 export const metadata = {
   title: "GS - fullstack engineer",
@@ -29,13 +30,14 @@ export const metadata = {
 
 export default async function Home() {
 
-  const data = await findRunData();
+  const rData = await findRunData();
+  const wData = await findWorkData();
   
   return (
     <>
       <BgMotionSection />
       <ProfileSection />
-      <WorkCardSeciton data={data} />
+      <WorkCardSeciton rData={rData} wData={wData} />
       <SkillSection />
       <ProjectSection />
       <EmptySection />

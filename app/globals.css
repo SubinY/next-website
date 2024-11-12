@@ -76,7 +76,11 @@ html {
 /* *=========== Orange theme =========== */
 @layer base {
   :root {
-    --gradient-body-image: radial-gradient(circle farthest-corner at 100% 50%,#d1d3d6,#fcfcfd);;
+    --gradient-body-image: radial-gradient(
+      circle farthest-corner at 100% 50%,
+      #d1d3d6,
+      #fcfcfd
+    );
 
     --background: 216 6% 98%;
     --foreground: 20 14.3% 4.1%;
@@ -110,7 +114,7 @@ html {
 
   .dark {
     --gradient-body-image: none;
-    
+
     --background: 20 14.3% 4.1%;
     --foreground: 60 9.1% 97.8%;
 
@@ -181,7 +185,7 @@ html {
   -ms-overflow-style: none;
   -webkit-overflow-scrolling: touch;
 }
- 
+
 .no-visible-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -191,18 +195,26 @@ html {
   width: 7px;
   height: 7px;
 }
- 
+
 /* 滚动条轨道样式 */
 ::-webkit-scrollbar-track {
   background-color: #d1d5db;
 }
- 
+
 /* 滚动条滑块样式 */
 ::-webkit-scrollbar-thumb {
   background-color: #334155;
 }
- 
+
 /* 滚动条滑块在hover状态下的样式 */
 ::-webkit-scrollbar-thumb:hover {
   background-color: #fb923c;
+}
+
+/* 贪方便公共样式写在这里 */
+.react-activity-calendar__scroll-container {
+  direction: rtl;
+}
+.react-activity-calendar__calendar {
+  direction: ltr;
 }

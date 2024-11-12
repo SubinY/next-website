@@ -29,6 +29,7 @@ async function createTable() {
 }
 
 db.RunModel = require("./run")(sequelize, DataTypes);
+db.WorkModel = require("./work")(sequelize, DataTypes);
 
 createTable();
 // 导出模块

@@ -1,5 +1,4 @@
 import dayjs from "dayjs/esm";
-
 // 导入模块
 const { RunModel } = require("../models");
 
@@ -45,7 +44,6 @@ async function keepLogin(): Promise<string | null> {
     const result: KeepLoginType = await res.json();
     if (result.ok === true) {
       cachedToken = result.data.token as string;
-      console.log(cachedToken, 'cachedTokencachedTokencachedToken')
       return result.data.token as string;
     }
     clearCache();
