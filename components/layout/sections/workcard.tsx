@@ -43,13 +43,14 @@ function getLevel(metre: number): number {
 
 export const WorkCardSeciton = ({ rData, wData }: any) => {
   const workData =
-    [{ date: "2024-07-08", overTimeDuration: -1 }, ...wData]
-      ?.map((item: any) => ({
+    [{ date: "2024-07-08", overTimeDuration: -1 }, ...wData]?.map(
+      (item: any) => ({
         ...item,
         level:
           item.overTimeDuration === -1 ? 0 : item.overTimeDuration <= 8 ? 1 : 4, // 今天不统计
         count: 1,
-      })) || [];
+      })
+    ) || [];
 
   const runData =
     rData
@@ -83,10 +84,14 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
             theme={theme}
             weekStart={1}
             showWeekdayLabels={["mon"]}
-            renderBlock={(block, activity) =>
+            renderBlock={(block, activity: any) =>
               React.cloneElement(block, {
                 "data-tooltip-id": "react-tooltip",
-                "data-tooltip-html": `${activity.count} activities on ${activity.date}`,
+                "data-tooltip-html": `${
+                  activity.overTimeDuration > 0
+                    ? activity.date + " " + activity.overTimeDuration + "h"
+                    : activity.date + " has rest"
+                }`,
               })
             }
           />
@@ -108,7 +113,7 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
                   "data-tooltip-id": "react-tooltip",
                   "data-tooltip-html": `${
                     activity.nameSuffix
-                      ? activity.date + "run" + activity.nameSuffix
+                      ? activity.date + " " + activity.nameSuffix
                       : activity.date + " has rest"
                   }`,
                 })

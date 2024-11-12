@@ -2,47 +2,65 @@
 
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AnimatedCircularProgressBar } from "../../ui/animated-circular-progress-bar";
+import LeaderLine from "leader-line-new";
 
 type CardItem = {
   title: string;
+  text: string;
+  id: string;
   val: number;
 };
 
 const Items: CardItem[] = [
   {
     title: "JavaScript / Typescript",
+    text: "Main business development is inseparable from JavaScript, and 50% of projects are developed using typescript.",
     val: 100,
+    id: "javascriptId",
   },
-  { title: "skill", val: 100 },
+  {
+    title: "skill",
+    text: "",
+    val: 100,
+    id: "",
+  },
   {
     title: "Vue / Vue3",
+    text: "Familiar with the underlying principles of the core code of each version of Vue, and development projects include management systems, H5, editors, and low-code projects",
     val: 100,
+    id: "vueId",
   },
   {
     title: "React / Next.js",
+    text: "I have been developing with react for half of my working life. This website is developed with nextjs.",
     val: 80,
+    id: "reactId",
   },
   {
     title: "nodejs / mongoDB",
+    text: "Personal projects and scaffolding basically use koa+mongoDB.",
     val: 50,
+    id: "nodeId",
   },
   {
     title: "小程序",
-    val: 80,
+    text: "Use multi-terminal development frameworks to develop mini-programs, such as Taro and uniapp.",
+    val: 70,
+    id: "miniId",
   },
 ];
 
-const HoverCard = ({ variants, ...props }: any) => {
+const HoverCard = ({ variants, text, ...props }: any) => {
   return (
     <motion.div
       variants={variants}
       exit="hidden"
-      className="w-full h-full absolute top-0 left-0 bg-[#334155]"
+      className="w-full h-full absolute top-0 left-0 bg-[#334155] text-sm text-gray-50 px-4 py-8 flex items-center"
       {...props}
     >
-      悬浮卡片内容
+      {text}
     </motion.div>
   );
 };
@@ -66,6 +84,7 @@ const SkillItem = (props: CardItem) => {
   return (
     <motion.div
       variants={cardVariants}
+      id={props.id}
       initial="visible"
       animate="visible"
       onMouseEnter={() => setIsHovered(true)}
@@ -90,6 +109,7 @@ const SkillItem = (props: CardItem) => {
           <HoverCard
             key="hoverCard"
             variants={cardVariants}
+            text={props.text}
             initial="hidden"
             animate="visible"
           />

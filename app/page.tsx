@@ -1,4 +1,3 @@
-
 import { FooterSection } from "@/components/layout/sections/footer";
 import { ProfileSection } from "@/components/layout/sections/profile";
 import { BgMotionSection } from "@/components/layout/sections/bgmotion";
@@ -8,6 +7,7 @@ import { ProjectSection } from "@/components/layout/sections/project";
 import { EmptySection } from "@/components/layout/sections/empty";
 import { findRunData } from "@/server/controller/run";
 import { findWorkData } from "@/server/controller/work";
+import Script from 'next/script';
 
 export const metadata = {
   title: "GS - fullstack engineer",
@@ -29,12 +29,12 @@ export const metadata = {
 };
 
 export default async function Home() {
-
   const rData = await findRunData();
   const wData = await findWorkData();
-  
+
   return (
     <>
+      <Script src="https://files.cnblogs.com/files/mggahui/leader-line.min.js"></Script>
       <BgMotionSection />
       <ProfileSection />
       <WorkCardSeciton rData={rData} wData={wData} />

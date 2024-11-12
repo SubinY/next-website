@@ -218,3 +218,7 @@ html {
 .react-activity-calendar__calendar {
   direction: ltr;
 }
+
+.leader-line {
+  z-index: 999;
+}

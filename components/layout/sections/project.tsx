@@ -12,6 +12,8 @@ import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 const Items = [
   {
     name: "FullStack Admin",
+    id: "fullId",
+    relateId: ["vueId", "nodeId"],
     description:
       "A full-stack front-end and back-end project built based on Koa, develop and deploy a management backend project in 30 minutes",
     href: "http://101.33.228.57:5000",
@@ -44,6 +46,8 @@ const Items = [
   },
   {
     name: "FrontEnd Material Platform",
+    id: "materialId",
+    relateId: ["vueId", "nodeId"],
     description:
       "Multi-client unified material platform, visual UI interface, and supporting commands help teams quickly develop materials",
     href: "http://101.33.228.57",
@@ -112,6 +116,8 @@ const Items = [
   },
   {
     name: "Diary Robot",
+    id: "diaryId",
+    relateId: ["javascriptId"],
     description:
       "Input scattered text on WeChat, and use AI to generate a specified diary template and output it to my diary website automatically",
     href: "https://github.com/SubinY",
@@ -132,6 +138,8 @@ const Items = [
   },
   {
     name: "handwrite web",
+    id: "handwriteId",
+    relateId: ["reactId"],
     description: "Support handwritten fonts and custom fonts, in building...",
     href: "https://handwrite.gymsummer.com",
     cta: "Learn more",
