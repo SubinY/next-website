@@ -72,23 +72,6 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
           </Highlight>
         </p>
       </div>
-      <p
-        onClick={() => {
-          const options = {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              uuid: process.env.UUID || '',
-            },
-            body: JSON.stringify({ status: 0 }), // 如果是JSON格式
-            // 或者如果是表单数据：
-            // body: new URLSearchParams(formData).toString()
-          };
-          fetch("/api/work", options);
-        }}
-      >
-        sdfasdf
-      </p>
       <div className="flex gap-10">
         <div className="flex-1 min-w-[40%] flex justify-center items-center flex-col">
           <HyperText
