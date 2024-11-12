@@ -1,4 +1,4 @@
-import { SiteConfig } from "@/types/env"
+import { SiteConfig } from "@/types/site"
 
 const baseSiteConfig = {
   name: "gymsummer.com",
