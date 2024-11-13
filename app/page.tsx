@@ -8,10 +8,17 @@ import { EmptySection } from "@/components/layout/sections/empty";
 import { findRunData } from "@/server/controller/run";
 import { findWorkData } from "@/server/controller/work";
 import Script from 'next/script';
+import { siteConfig } from "@/config/site";
 
 export const metadata = {
-  title: "GS - fullstack engineer",
-  description: "gymsummer website",
+  title: siteConfig.name,
+  description: siteConfig.description,
+  keywords: siteConfig.keywords,
+  authors: siteConfig.authors,
+  creator: siteConfig.creator,
+  themeColor: siteConfig.themeColor,
+  icons: siteConfig.icons,
+  metadataBase: siteConfig.metadataBase,
   openGraph: {
     type: "website",
     url: "https://github.com/subinY/next-website",

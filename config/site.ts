@@ -1,8 +1,8 @@
 import { SiteConfig } from "@/types/site"
 
 const baseSiteConfig = {
-  name: "gymsummer.com",
-  description: ["The weak love records"],
+  name: "GS - fullstack engineer",
+  description: ["gymsummer website"],
   url: "https://www.gymsummer.com",
   metadataBase: new URL("https://www.gymsummer.com"),
   keywords: [
