@@ -114,7 +114,7 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
                   "data-tooltip-html": `${
                     activity.nameSuffix
                       ? activity.date + " " + activity.nameSuffix
-                      : activity.date + " has rest"
+                      : activity.date
                   }`,
                 })
               }

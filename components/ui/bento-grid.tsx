@@ -1,11 +1,15 @@
-"use client"
+"use client";
 
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
-import LeaderLine from "leader-line-new";
+// import LeaderLine from "leader-line-new";
 
 import { cn } from "@/lib/utils";
 import { Button } from "./button";
+
+function isServerEnvironment(): boolean {
+  return typeof window === "undefined" || typeof document === "undefined";
+}
 
 const BentoGrid = ({
   children,
@@ -52,17 +56,26 @@ const BentoCard = ({
   relateId?: string[];
 }) => {
   useEffect(() => {
-    if (typeof document !== 'undefined' && id && relateId?.length) {
-      const startElement = document.getElementById(id);
-      const endElements = relateId.map((endId) =>
-        document.getElementById(endId)
-      );
-      endElements.map(
-        (ele) =>
-          new LeaderLine(LeaderLine.mouseHoverAnchor(startElement!), ele!, {
-            dash: true,
-          })
-      );
+    if (!isServerEnvironment()) {
+      if (id && relateId?.length) {
+        const startElement = window.document.documentElement.querySelector(
+          `#${id}`
+        ) as any;
+        const endElements = relateId.map((endId) =>
+          window.document.documentElement.querySelector(`#${endId}`)
+        );
+
+        // 第三方非导出react组件的库需要动态引入在useEffect中解决报错问题
+        import("leader-line-new").then((LeaderLineModule) => {
+          const LeaderLine = LeaderLineModule.default;
+          endElements.map(
+            (ele) =>
+              new LeaderLine(LeaderLine.mouseHoverAnchor(startElement), ele!, {
+                dash: true,
+              })
+          );
+        });
+      }
     }
   }, [id, relateId]);
 
