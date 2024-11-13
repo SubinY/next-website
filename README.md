@@ -1,9 +1,23 @@
-# Shadcn Website
+# Shadcn Website Build with the Next.js 14
 
-## Features
+![首页](./public/readme.png)
+
+## Overview
+
+通过以下库快速搭建nextjs个人网站
+
+- Framework: Next.js 14
+- Styling: Tailwind CSS
+- Headless UI: shadcn-ui、radix-ui、magic-ui、aceternity-ui
+- Database: Postgres
+- ORM: sequelize
+
+
+## Todo
 
 - [x] 响应式
 - [x] 滑动导航
 - [x] 暗黑模式
-- [ ] 工作日历卡片，类似github
-- [ ] 调整项目主题色风格，三种主色调
+- [x] 日历卡片、支持PG数据库录入
+- [ ] 多种主题色
+- [ ] 可配置更换素材
