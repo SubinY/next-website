@@ -22,7 +22,7 @@ export const ProfileSection = () => {
         <CardBody className="bg-gradient-to-rb relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black w-auto sm:w-[24rem] h-auto rounded-xl p-6">
           <CardItem
             translateZ="50"
-            className="text-xl font-bold text-neutral-600 dark:text-white"
+            className="text-xl font-bold text-neutral-600"
           >
             My name is:
           </CardItem>
@@ -32,22 +32,22 @@ export const ProfileSection = () => {
           >
             <FlipWords
               words={words}
-              className="text-primary w-full text-center"
+              className="text-primary w-full text-center dark:text-neutral-600"
             />
           </CardItem>
           <CardItem
             translateZ="50"
-            className="text-xl font-bold text-neutral-600 dark:text-white mt-4"
+            className="text-xl font-bold text-neutral-600 mt-4"
           >
             I am a:
           </CardItem>
           <CardItem
             translateZ={20}
-            className="w-full flex mt-6 justify-end flex-col items-end text-xl hover:text-[#ddd]"
+            className="w-full flex mt-6 justify-end flex-col items-end text-xl hover:text-[#ddd] dark:text-neutral-600 dark:hover:text-[#fff]"
           >
             {routeList.map(({ href, label }) => (
               <div key={href}>
-                <Link href={href} className="hover:text-neutral-600">
+                <Link href={href} className="hover:text-neutral-600 dark:hover:text-neutral-600">
                   {label}
                 </Link>
               </div>
@@ -100,7 +100,7 @@ export const ProfileSection = () => {
           height="50"
           width="50"
           loading="lazy"
-          className="w-20 relative top-8 left-2 drop-shadow-lg"
+          className="w-20 relative drop-shadow-lg"
           alt="thumbnail"
         />
       </p>
@@ -115,7 +115,7 @@ export const ProfileSection = () => {
           height="50"
           width="50"
           loading="lazy"
-          className="w-20 relative top-8 left-2 drop-shadow-lg"
+          className="w-20 relative drop-shadow-lg"
           alt="thumbnail"
         />
       </p>
@@ -130,7 +130,7 @@ export const ProfileSection = () => {
           height="50"
           width="50"
           loading="lazy"
-          className="w-20 relative top-8 left-2 drop-shadow-lg"
+          className="w-20 relative drop-shadow-lg"
           alt="thumbnail"
         />
       </p>
@@ -145,7 +145,7 @@ export const ProfileSection = () => {
           height="50"
           width="50"
           loading="lazy"
-          className="w-40 relative top-8 left-2 drop-shadow-lg"
+          className="w-40 relative drop-shadow-lg"
           alt="thumbnail"
         />
       </p>
@@ -160,7 +160,7 @@ export const ProfileSection = () => {
           height="150"
           width="150"
           loading="lazy"
-          className="w-100 relative top-8 left-2 drop-shadow-lg rounded-full"
+          className="w-100 relative drop-shadow-lg rounded-full"
           alt="thumbnail"
         />
       </p>
