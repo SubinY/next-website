@@ -6,7 +6,7 @@ import { HyperText } from "../../ui/hyper-text";
 import dayjs from "./../../../node_modules/dayjs/esm/index";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 const theme = {
   light: ["hsl(27, 0%, 100%)", "hsl(27, 100%, 61%)"],
@@ -42,9 +42,6 @@ function getLevel(metre: number): number {
 }
 
 export const WorkCardSeciton = ({ rData, wData }: any) => {
-
-  const calendar1Ref = useRef(null)
-  const calendar2Ref = useRef(null)
 
   const workData =
     [{ date: "2024-07-08", overTimeDuration: -1 }, ...wData]?.map(
@@ -83,8 +80,7 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
             className="text-4xl font-bold text-black dark:text-white"
             text="Working"
           />
-          <ActivityCalendar
-          ref={calendar1Ref}
+          {/* <ActivityCalendar
             data={workData}
             theme={theme}
             weekStart={1}
@@ -99,7 +95,7 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
                 }`,
               })
             }
-          />
+          /> */}
         </div>
         {runData && runData.length ? (
           <div className="flex-1 min-w-[40%] flex justify-center items-center flex-col">
@@ -108,22 +104,10 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
               text="Running"
             />
             <ActivityCalendar
-          ref={calendar2Ref}
-              data={runData}
-              theme={runTheme}
-              weekStart={1}
-              showWeekdayLabels={["mon"]}
-              style={{ width: "100%" }}
-              renderBlock={(block, activity: any) =>
-                React.cloneElement(block, {
-                  "data-tooltip-id": "react-tooltip",
-                  "data-tooltip-html": `${
-                    activity.nameSuffix
-                      ? activity.date + " " + activity.nameSuffix
-                      : activity.date
-                  }`,
-                })
-              }
+              data={[{date: '2021-07-08', level: 4, count: 3}]}
+            />
+            <ActivityCalendar
+              data={[{date: '2021-07-08', level: 4, count: 3}]}
             />
           </div>
         ) : null}
