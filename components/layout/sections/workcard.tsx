@@ -1,6 +1,5 @@
 "use client";
 import { ActivityCalendar } from "react-activity-calendar";
-import { ActivityCalendar as ActivityCalendar1 } from "react-activity-calendar";
 import { HeroHighlight, Highlight } from "../../ui/hero-highlight";
 import { HyperText } from "../../ui/hyper-text";
 // import { GET as runGet } from "../../../app/api/run/route";
@@ -57,14 +56,41 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
     count: 1,
   })) || [{ date: "2024-01-01", level: 0, count: 0 }];
 
-  const runData = [...rData, { date: "2024-01-01" }]
-    ?.map((item: any) => ({
+  // // 用于日历
+  // const runData = [...rData, { date: "2024-01-01" }]
+  //   ?.map((item: any) => ({
+  //     ...item,
+  //     date: item.date ?? dayjs(+item.endTime).format("YYYY-MM-DD"),
+  //     level: item.startTime === item.endTime ? 0 : getLevel(item.kilometre), // 今天不统计
+  //     count: item.startTime === item.endTime ? 0 : 1,
+  //   }))
+  //   .reverse() || [{ date: "2024-01-01", level: 0, count: 0 }];
+
+  const filterByUniqueStartTime = (array: Recordable[]) => {
+    const seen: any = {}; // 用于跟踪已经遇到的 startTime
+    return array.filter((item) => {
+      const startTime = item.startTime;
+      if (!seen[startTime]) {
+        seen[startTime] = true; // 标记为已遇到
+        return true; // 保留这个元素
+      }
+      return false; // 跳过这个元素，因为它是重复的
+    });
+  };
+
+  const runData =
+    filterByUniqueStartTime(rData)?.map((item: any) => ({
       ...item,
       date: item.date ?? dayjs(+item.endTime).format("YYYY-MM-DD"),
       level: item.startTime === item.endTime ? 0 : getLevel(item.kilometre), // 今天不统计
       count: item.startTime === item.endTime ? 0 : 1,
-    }))
-    .reverse() || [{ date: "2024-01-01", level: 0, count: 0 }];
+    })) || [];
+
+  const calcMin = (time: number) => {
+    let minutes = Math.floor(time / 60); // 使用 Math.floor 来向下取整得到完整的分钟数
+    let remainingSeconds = time % 60; // 使用取模运算符来得到剩余的秒数
+    return time ? `${minutes} 分钟 ${remainingSeconds} 秒` : "-";
+  };
 
   return (
     <section id="work" className="max-w-[75%] mx-auto py-24 sm:py-32">
@@ -77,7 +103,7 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
           </Highlight>
         </p>
       </div>
-      <div>
+      <div className="mb-5">
         {key === "working" ? (
           <div className="flex justify-center items-center gap-5">
             <HyperText
@@ -107,40 +133,63 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
         )}
       </div>
       {key === "working" ? (
-        <ActivityCalendar
-          data={workData}
-          theme={theme}
-          weekStart={1}
-          showWeekdayLabels={["mon"]}
-          renderBlock={(block, activity: any) =>
-            React.cloneElement(block, {
-              "data-tooltip-id": "react-tooltip",
-              "data-tooltip-html": `${
-                activity.overTimeDuration > 0
-                  ? activity.date + " " + activity.overTimeDuration + "h"
-                  : activity.date
-              }`,
-            })
-          }
-        />
-      ) : ( 
-        <ActivityCalendar1
-          data={runData}
-          theme={runTheme}
-          weekStart={1}
-          showWeekdayLabels={["mon"]}
-          style={{ width: "100%" }}
-          renderBlock={(block, activity: any) =>
-            React.cloneElement(block, {
-              "data-tooltip-id": "react-tooltip",
-              "data-tooltip-html": `${
-                activity.nameSuffix
-                  ? activity.date + " " + activity.nameSuffix
-                  : activity.date
-              }`,
-            })
-          }
-        />
+        <div className="flex justify-center">
+          <ActivityCalendar
+            data={workData}
+            theme={theme}
+            weekStart={1}
+            showWeekdayLabels={["mon"]}
+            renderBlock={(block, activity: any) =>
+              React.cloneElement(block, {
+                "data-tooltip-id": "react-tooltip",
+                "data-tooltip-html": `${
+                  activity.overTimeDuration > 0
+                    ? activity.date + " " + activity.overTimeDuration + "h"
+                    : activity.date
+                }`,
+              })
+            }
+          />
+        </div>
+      ) : (
+        // <ActivityCalendar
+        //   data={runData}
+        //   theme={runTheme}
+        //   weekStart={1}
+        //   showWeekdayLabels={["mon"]}
+        //   style={{ width: "100%" }}
+        //   renderBlock={(block, activity: any) =>
+        //     React.cloneElement(block, {
+        //       "data-tooltip-id": "react-tooltip",
+        //       "data-tooltip-html": `${
+        //         activity.nameSuffix
+        //           ? activity.date + " " + activity.nameSuffix
+        //           : activity.date
+        //       }`,
+        //     })
+        //   }
+        // />
+        <div className="overflow-x-auto max-h-[15rem]">
+          {/* 包裹表格以处理水平溢出，并限制最大高度 */}
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr>
+                <th className="p-3 bg-gray-200 font-bold">Date</th>
+                <th className="p-3 bg-gray-200 font-bold">KM</th>
+                <th className="p-3 bg-gray-200 font-bold">Duration</th>
+              </tr>
+            </thead>
+            <tbody>
+              {runData.map((item, index) => (
+                <tr key={index}>
+                  <td className="p-3 border">{item.date}</td>
+                  <td className="p-3 border">{item.nameSuffix}</td>
+                  <td className="p-3 border">{calcMin(+item.duration)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
       <ReactTooltip id="react-tooltip" />
     </section>
