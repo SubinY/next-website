@@ -7,8 +7,9 @@ import { ProjectSection } from "@/components/layout/sections/project";
 import { EmptySection } from "@/components/layout/sections/empty";
 import { findRunData } from "@/server/controller/run";
 import { findWorkData } from "@/server/controller/work";
-import Script from 'next/script';
+import Script from "next/script";
 import { siteConfig } from "@/config/site";
+// import { useEffect } from "react";
 
 export const metadata = {
   title: siteConfig.name,
@@ -39,16 +40,31 @@ export default async function Home() {
   const rData = await findRunData();
   const wData = await findWorkData();
 
+  // useEffect(() => {
+  //   if (process.env.NODE_ENV === 'development') {
+  //     let vConsole: VConsole;
+  //     const loadVConsole = async () => {
+  //       const VConsole = (await import('vconsole')).default;
+  //       vConsole = new VConsole();
+  //     };
+  //     loadVConsole();
+  //     return () => {
+  //       if (vConsole) vConsole.destroy();
+  //     };
+  //   }
+  // }, []);
+
   return (
     <>
       {/* <Script src="https://files.cnblogs.com/files/mggahui/leader-line.min.js"></Script> */}
+      {/* <Script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></Script> */}
       <BgMotionSection />
-      <ProfileSection />
+      {/* <ProfileSection />
       <WorkCardSeciton rData={rData} wData={wData} />
       <SkillSection />
       <ProjectSection />
       <EmptySection />
-      <FooterSection />
+      <FooterSection /> */}
     </>
   );
 }
