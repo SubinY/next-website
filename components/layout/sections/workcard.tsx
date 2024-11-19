@@ -80,7 +80,7 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
             text="Working"
           />
           <ActivityCalendar
-            data={workData}
+            data={[{ date: "2024-07-08", level: 1, count: 1 }]}
             theme={theme}
             weekStart={1}
             showWeekdayLabels={["mon"]}
