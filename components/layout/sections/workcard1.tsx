@@ -41,7 +41,7 @@ function getLevel(metre: number): number {
   }
 }
 
-export const WorkCardSeciton = ({ rData, wData }: any) => {
+export const WorkCard1Seciton = ({ rData, wData }: any) => {
   const workData =
     [{ date: "2024-07-08", overTimeDuration: -1 }, ...wData]?.map(
       (item: any) => ({
@@ -74,28 +74,31 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
         </p>
       </div>
       <div className="flex gap-10">
-        <div className="flex-1 min-w-[40%] flex justify-center items-center flex-col">
-          <HyperText
-            className="text-4xl font-bold text-black dark:text-white"
-            text="Working"
-          />
-          <ActivityCalendar
-            data={workData}
-            theme={theme}
-            weekStart={1}
-            showWeekdayLabels={["mon"]}
-            renderBlock={(block, activity: any) =>
-              React.cloneElement(block, {
-                "data-tooltip-id": "react-tooltip",
-                "data-tooltip-html": `${
-                  activity.overTimeDuration > 0
-                    ? activity.date + " " + activity.overTimeDuration + "h"
-                    : activity.date
-                }`,
-              })
-            }
-          />
-        </div>
+        {runData && runData.length ? (
+          <div className="flex-1 min-w-[40%] flex justify-center items-center flex-col">
+            <HyperText
+              className="text-4xl font-bold text-black dark:text-white"
+              text="Running"
+            />
+            <ActivityCalendar
+              data={runData}
+              theme={runTheme}
+              weekStart={1}
+              showWeekdayLabels={["mon"]}
+              style={{ width: "100%" }}
+              renderBlock={(block, activity: any) =>
+                React.cloneElement(block, {
+                  "data-tooltip-id": "react-tooltip",
+                  "data-tooltip-html": `${
+                    activity.nameSuffix
+                      ? activity.date + " " + activity.nameSuffix
+                      : activity.date
+                  }`,
+                })
+              }
+            />
+          </div>
+        ) : null}
       </div>
       <ReactTooltip id="react-tooltip" />
     </section>

@@ -2,6 +2,7 @@ import { FooterSection } from "@/components/layout/sections/footer";
 import { ProfileSection } from "@/components/layout/sections/profile";
 import { BgMotionSection } from "@/components/layout/sections/bgmotion";
 import { WorkCardSeciton } from "@/components/layout/sections/workcard";
+import { WorkCard1Seciton } from "@/components/layout/sections/workcard1";
 import { SkillSection } from "@/components/layout/sections/skill";
 import { ProjectSection } from "@/components/layout/sections/project";
 import { EmptySection } from "@/components/layout/sections/empty";
@@ -61,6 +62,7 @@ export default async function Home() {
       <BgMotionSection />
       <ProfileSection />
       <WorkCardSeciton rData={rData} wData={wData} />
+      <WorkCard1Seciton rData={rData} wData={wData} />
       <SkillSection />
       <ProjectSection />
       <EmptySection />
