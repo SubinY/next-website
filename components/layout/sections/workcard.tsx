@@ -90,7 +90,7 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
                 "data-tooltip-html": `${
                   activity.overTimeDuration > 0
                     ? activity.date + " " + activity.overTimeDuration + "h"
-                    : activity.date + " has rest"
+                    : activity.date
                 }`,
               })
             }
@@ -103,6 +103,22 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
               text="Running"
             />
             <ActivityCalendar
+              data={workData}
+              theme={theme}
+              weekStart={1}
+              showWeekdayLabels={["mon"]}
+              renderBlock={(block, activity: any) =>
+                React.cloneElement(block, {
+                  "data-tooltip-id": "react-tooltip",
+                  "data-tooltip-html": `${
+                    activity.overTimeDuration > 0
+                      ? activity.date + " " + activity.overTimeDuration + "h"
+                      : activity.date
+                  }`,
+                })
+              }
+            />
+            {/* <ActivityCalendar
               data={runData}
               theme={runTheme}
               weekStart={1}
@@ -118,7 +134,7 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
                   }`,
                 })
               }
-            />
+            /> */}
           </div>
         ) : null}
       </div>
