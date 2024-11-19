@@ -44,7 +44,7 @@ function getLevel(metre: number): number {
 export const WorkCardSeciton = ({ rData, wData }: any) => {
 
   const workData =
-    [{ date: "2024-07-08", overTimeDuration: -1 }, ...wData]?.map(
+    [{ date: "2024-01-01", overTimeDuration: -1 }, ...wData]?.map(
       (item: any) => ({
         ...item,
         level:
@@ -54,10 +54,10 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
     ) || [];
 
   const runData =
-    rData
+  [...rData, { date: "2024-01-01" }]
       ?.map((item: any) => ({
         ...item,
-        date: dayjs(+item.endTime).format("YYYY-MM-DD"),
+        date: item.date ?? dayjs(+item.endTime).format("YYYY-MM-DD"),
         level: item.startTime === item.endTime ? 0 : getLevel(item.kilometre), // 今天不统计
         count: item.startTime === item.endTime ? 0 : 1,
       }))
@@ -80,7 +80,7 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
             className="text-4xl font-bold text-black dark:text-white"
             text="Working"
           />
-          {/* <ActivityCalendar
+          <ActivityCalendar
             data={workData}
             theme={theme}
             weekStart={1}
@@ -95,19 +95,30 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
                 }`,
               })
             }
-          /> */}
+          />
         </div>
-        {runData && runData.length ? (
+        {false ? (
           <div className="flex-1 min-w-[40%] flex justify-center items-center flex-col">
             <HyperText
               className="text-4xl font-bold text-black dark:text-white"
               text="Running"
             />
             <ActivityCalendar
-              data={[{date: '2021-07-08', level: 4, count: 3}]}
-            />
-            <ActivityCalendar
-              data={[{date: '2021-07-08', level: 4, count: 3}]}
+              data={runData}
+              theme={runTheme}
+              weekStart={1}
+              showWeekdayLabels={["mon"]}
+              style={{ width: "100%" }}
+              renderBlock={(block, activity: any) =>
+                React.cloneElement(block, {
+                  "data-tooltip-id": "react-tooltip",
+                  "data-tooltip-html": `${
+                    activity.nameSuffix
+                      ? activity.date + " " + activity.nameSuffix
+                      : activity.date
+                  }`,
+                })
+              }
             />
           </div>
         ) : null}
