@@ -95,7 +95,7 @@ export const Navbar = () => {
               <div className="flex flex-col gap-2">
                 {routeList.map(({ href, label }) => (
                   <Button
-                    key={href}
+                    key={href + label}
                     onClick={() => setIsOpen(false)}
                     asChild
                     variant="ghost"
@@ -121,7 +121,7 @@ export const Navbar = () => {
         <NavigationMenuList>
           <NavigationMenuItem>
             {routeList.map(({ href, label }) => (
-              <NavigationMenuLink key={href} asChild>
+              <NavigationMenuLink key={href + label} asChild>
                 <Link href={href} className="text-base px-2">
                   {label}
                 </Link>

@@ -41,7 +41,7 @@ export default async function Home() {
 
   return (
     <>
-      <Script src="https://files.cnblogs.com/files/mggahui/leader-line.min.js"></Script>
+      {/* <Script src="https://files.cnblogs.com/files/mggahui/leader-line.min.js"></Script> */}
       <BgMotionSection />
       <ProfileSection />
       <WorkCardSeciton rData={rData} wData={wData} />

@@ -46,7 +46,7 @@ export const ProfileSection = () => {
             className="w-full flex mt-6 justify-end flex-col items-end text-xl hover:text-[#ddd] dark:text-neutral-600 dark:hover:text-[#fff]"
           >
             {routeList.map(({ href, label }) => (
-              <div key={href}>
+              <div key={href + label}>
                 <Link href={href} className="hover:text-neutral-600 dark:hover:text-neutral-600">
                   {label}
                 </Link>
