@@ -79,12 +79,22 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
             className="text-4xl font-bold text-black dark:text-white"
             text="Working"
           />
-          <ActivityCalendar
-            data={[{ date: "2024-07-08", level: 1, count: 1 }]}
+          {workData && workData.length ? <ActivityCalendar
+            data={workData}
             theme={theme}
             weekStart={1}
             showWeekdayLabels={["mon"]}
-          />
+            renderBlock={(block, activity: any) =>
+              React.cloneElement(block, {
+                "data-tooltip-id": "react-tooltip",
+                "data-tooltip-html": `${
+                  activity.overTimeDuration > 0
+                    ? activity.date + " " + activity.overTimeDuration + "h"
+                    : activity.date
+                }`,
+              })
+            }
+          /> : null}
         </div>
         {runData && runData.length ? (
           <div className="flex-1 min-w-[40%] flex justify-center items-center flex-col">
