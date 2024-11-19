@@ -60,7 +60,7 @@ export default async function Home() {
       {/* <Script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></Script> */}
       <BgMotionSection />
       <ProfileSection />
-      {/* <WorkCardSeciton rData={rData} wData={wData} /> */}
+      <WorkCardSeciton rData={rData} wData={wData} />
       <SkillSection />
       <ProjectSection />
       <EmptySection />

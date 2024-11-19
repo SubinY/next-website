@@ -55,29 +55,29 @@ const BentoCard = ({
   id?: string;
   relateId?: string[];
 }) => {
-  // useEffect(() => {
-  //   if (!isServerEnvironment()) {
-  //     if (id && relateId?.length) {
-  //       const startElement = window.document.documentElement.querySelector(
-  //         `#${id}`
-  //       ) as any;
-  //       const endElements = relateId.map((endId) =>
-  //         window.document.documentElement.querySelector(`#${endId}`)
-  //       );
+  useEffect(() => {
+    if (!isServerEnvironment()) {
+      if (id && relateId?.length) {
+        const startElement = window.document.documentElement.querySelector(
+          `#${id}`
+        ) as any;
+        const endElements = relateId.map((endId) =>
+          window.document.documentElement.querySelector(`#${endId}`)
+        );
 
-  //       // 第三方非导出react组件的库需要动态引入在useEffect中解决报错问题
-  //       import("leader-line-new").then((LeaderLineModule) => {
-  //         const LeaderLine = LeaderLineModule.default;
-  //         endElements.map(
-  //           (ele) =>
-  //             new LeaderLine(LeaderLine.mouseHoverAnchor(startElement), ele!, {
-  //               dash: true,
-  //             })
-  //         );
-  //       });
-  //     }
-  //   }
-  // }, [id, relateId]);
+        // 第三方非导出react组件的库需要动态引入在useEffect中解决报错问题
+        import("leader-line-new").then((LeaderLineModule) => {
+          const LeaderLine = LeaderLineModule.default;
+          endElements.map(
+            (ele) =>
+              new LeaderLine(LeaderLine.mouseHoverAnchor(startElement), ele!, {
+                dash: true,
+              })
+          );
+        });
+      }
+    }
+  }, [id, relateId]);
 
   return (
     <div
