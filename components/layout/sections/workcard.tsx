@@ -6,7 +6,7 @@ import { HyperText } from "../../ui/hyper-text";
 import dayjs from "./../../../node_modules/dayjs/esm/index";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
-import React from "react";
+import React, { useEffect } from "react";
 
 const theme = {
   light: ["hsl(27, 0%, 100%)", "hsl(27, 100%, 61%)"],
@@ -62,6 +62,18 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
       }))
       .reverse() || [];
 
+  useEffect(() => {
+    let vConsole: any;
+    const loadVConsole = async () => {
+      const VConsole = (await import("vconsole")).default;
+      vConsole = new VConsole();
+    };
+    loadVConsole();
+    return () => {
+      if (vConsole) vConsole.destroy();
+    };
+  }, []);
+
   return (
     <section id="work" className="max-w-[75%] mx-auto py-24 sm:py-32">
       <div className="relative -top-10">
@@ -96,6 +108,31 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
             }
           />
         </div>
+        {runData && runData.length ? (
+          <div className="flex-1 min-w-[40%] flex justify-center items-center flex-col">
+            <HyperText
+              className="text-4xl font-bold text-black dark:text-white"
+              text="Running"
+            />
+            <ActivityCalendar
+              data={runData}
+              theme={runTheme}
+              weekStart={1}
+              showWeekdayLabels={["mon"]}
+              style={{ width: "100%" }}
+              renderBlock={(block, activity: any) =>
+                React.cloneElement(block, {
+                  "data-tooltip-id": "react-tooltip",
+                  "data-tooltip-html": `${
+                    activity.nameSuffix
+                      ? activity.date + " " + activity.nameSuffix
+                      : activity.date
+                  }`,
+                })
+              }
+            />
+          </div>
+        ) : null}
       </div>
       <ReactTooltip id="react-tooltip" />
     </section>
