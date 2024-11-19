@@ -6,7 +6,7 @@ import { HyperText } from "../../ui/hyper-text";
 import dayjs from "./../../../node_modules/dayjs/esm/index";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
-import React, { useEffect } from "react";
+import React, { useRef } from "react";
 
 const theme = {
   light: ["hsl(27, 0%, 100%)", "hsl(27, 100%, 61%)"],
@@ -42,6 +42,10 @@ function getLevel(metre: number): number {
 }
 
 export const WorkCardSeciton = ({ rData, wData }: any) => {
+
+  const calendar1Ref = useRef(null)
+  const calendar2Ref = useRef(null)
+
   const workData =
     [{ date: "2024-07-08", overTimeDuration: -1 }, ...wData]?.map(
       (item: any) => ({
@@ -62,18 +66,6 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
       }))
       .reverse() || [];
 
-  useEffect(() => {
-    let vConsole: any;
-    const loadVConsole = async () => {
-      const VConsole = (await import("vconsole")).default;
-      vConsole = new VConsole();
-    };
-    loadVConsole();
-    return () => {
-      if (vConsole) vConsole.destroy();
-    };
-  }, []);
-
   return (
     <section id="work" className="max-w-[75%] mx-auto py-24 sm:py-32">
       <div className="relative -top-10">
@@ -92,6 +84,7 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
             text="Working"
           />
           <ActivityCalendar
+          ref={calendar1Ref}
             data={workData}
             theme={theme}
             weekStart={1}
@@ -115,6 +108,7 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
               text="Running"
             />
             <ActivityCalendar
+          ref={calendar2Ref}
               data={runData}
               theme={runTheme}
               weekStart={1}
