@@ -172,14 +172,14 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
         <div className="overflow-x-auto max-h-[15rem]">
           {/* 包裹表格以处理水平溢出，并限制最大高度 */}
           <table className="w-full text-left border-collapse">
-            <thead>
+            <thead className="bg-primary sticky top-0 z-10">
               <tr>
-                <th className="p-3 bg-gray-200 font-bold">Date</th>
-                <th className="p-3 bg-gray-200 font-bold">KM</th>
-                <th className="p-3 bg-gray-200 font-bold">Duration</th>
+                <th className="p-3 font-bold">Date</th>
+                <th className="p-3 font-bold">KM</th>
+                <th className="p-3 font-bold">Duration</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="bg-white text-sm md:text-xl">
               {runData.map((item, index) => (
                 <tr key={index}>
                   <td className="p-3 border">{item.date}</td>
