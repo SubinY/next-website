@@ -1,5 +1,6 @@
 "use client";
 import { ActivityCalendar } from "react-activity-calendar";
+import { ActivityCalendar as ActivityCalendar1 } from "react-activity-calendar";
 import { HeroHighlight, Highlight } from "../../ui/hero-highlight";
 import { HyperText } from "../../ui/hyper-text";
 // import { GET as runGet } from "../../../app/api/run/route";
@@ -46,25 +47,24 @@ function getLevel(metre: number): number {
 export const WorkCardSeciton = ({ rData, wData }: any) => {
   const [key, setKey] = useState<ActionType>("working");
 
-  const workData =
-    [{ date: "2024-01-01", overTimeDuration: -1 }, ...wData]?.map(
-      (item: any) => ({
-        ...item,
-        level:
-          item.overTimeDuration === -1 ? 0 : item.overTimeDuration <= 8 ? 1 : 4, // 今天不统计
-        count: 1,
-      })
-    ) || [{ date: "2024-01-01", level: 0, count: 0 }];
+  const workData = [
+    { date: "2024-01-01", overTimeDuration: -1 },
+    ...wData,
+  ]?.map((item: any) => ({
+    ...item,
+    level:
+      item.overTimeDuration === -1 ? 0 : item.overTimeDuration <= 8 ? 1 : 4, // 今天不统计
+    count: 1,
+  })) || [{ date: "2024-01-01", level: 0, count: 0 }];
 
-  const runData =
-    [...rData, { date: "2024-01-01" }]
-      ?.map((item: any) => ({
-        ...item,
-        date: item.date ?? dayjs(+item.endTime).format("YYYY-MM-DD"),
-        level: item.startTime === item.endTime ? 0 : getLevel(item.kilometre), // 今天不统计
-        count: item.startTime === item.endTime ? 0 : 1,
-      }))
-      .reverse() || [{ date: "2024-01-01", level: 0, count: 0 }];
+  const runData = [...rData, { date: "2024-01-01" }]
+    ?.map((item: any) => ({
+      ...item,
+      date: item.date ?? dayjs(+item.endTime).format("YYYY-MM-DD"),
+      level: item.startTime === item.endTime ? 0 : getLevel(item.kilometre), // 今天不统计
+      count: item.startTime === item.endTime ? 0 : 1,
+    }))
+    .reverse() || [{ date: "2024-01-01", level: 0, count: 0 }];
 
   return (
     <section id="work" className="max-w-[75%] mx-auto py-24 sm:py-32">
@@ -123,8 +123,8 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
             })
           }
         />
-      ) : (
-        <ActivityCalendar
+      ) : ( 
+        <ActivityCalendar1
           data={runData}
           theme={runTheme}
           weekStart={1}
