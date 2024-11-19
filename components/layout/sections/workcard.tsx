@@ -102,7 +102,7 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
               className="text-4xl font-bold text-black dark:text-white"
               text="Running"
             />
-            {/* <ActivityCalendar
+            <ActivityCalendar
               data={runData}
               theme={runTheme}
               weekStart={1}
@@ -118,7 +118,7 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
                   }`,
                 })
               }
-            /> */}
+            />
           </div>
         ) : null}
       </div>
