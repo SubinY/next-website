@@ -6,7 +6,9 @@ import { HyperText } from "../../ui/hyper-text";
 import dayjs from "./../../../node_modules/dayjs/esm/index";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
-import React, { useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
+
+type ActionType = "working" | "running";
 
 const theme = {
   light: ["hsl(27, 0%, 100%)", "hsl(27, 100%, 61%)"],
@@ -42,6 +44,7 @@ function getLevel(metre: number): number {
 }
 
 export const WorkCardSeciton = ({ rData, wData }: any) => {
+  const [key, setKey] = useState<ActionType>("working");
 
   const workData =
     [{ date: "2024-01-01", overTimeDuration: -1 }, ...wData]?.map(
@@ -51,17 +54,17 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
           item.overTimeDuration === -1 ? 0 : item.overTimeDuration <= 8 ? 1 : 4, // 今天不统计
         count: 1,
       })
-    ) || [];
+    ) || [{ date: "2024-01-01", level: 0, count: 0 }];
 
   const runData =
-  [...rData, { date: "2024-01-01" }]
+    [...rData, { date: "2024-01-01" }]
       ?.map((item: any) => ({
         ...item,
         date: item.date ?? dayjs(+item.endTime).format("YYYY-MM-DD"),
         level: item.startTime === item.endTime ? 0 : getLevel(item.kilometre), // 今天不统计
         count: item.startTime === item.endTime ? 0 : 1,
       }))
-      .reverse() || [];
+      .reverse() || [{ date: "2024-01-01", level: 0, count: 0 }];
 
   return (
     <section id="work" className="max-w-[75%] mx-auto py-24 sm:py-32">
@@ -74,55 +77,71 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
           </Highlight>
         </p>
       </div>
-      <div className="flex gap-10">
-        <div className="flex-1 min-w-[40%] flex justify-center items-center flex-col">
-          <HyperText
-            className="text-4xl font-bold text-black dark:text-white"
-            text="Working"
-          />
-          <ActivityCalendar
-            data={workData}
-            theme={theme}
-            weekStart={1}
-            showWeekdayLabels={["mon"]}
-            renderBlock={(block, activity: any) =>
-              React.cloneElement(block, {
-                "data-tooltip-id": "react-tooltip",
-                "data-tooltip-html": `${
-                  activity.overTimeDuration > 0
-                    ? activity.date + " " + activity.overTimeDuration + "h"
-                    : activity.date
-                }`,
-              })
-            }
-          />
-        </div>
-        {false ? (
-          <div className="flex-1 min-w-[40%] flex justify-center items-center flex-col">
+      <div>
+        {key === "working" ? (
+          <div className="flex justify-center items-center gap-5">
+            <HyperText
+              className="text-4xl font-bold text-black dark:text-white"
+              text="Working"
+            />
+            <button
+              onClick={() => setKey("running")}
+              className="px-6 py-2 bg-white text-primary rounded-lg font-bold transform hover:-translate-y-1 transition duration-400"
+            >
+              Running
+            </button>
+          </div>
+        ) : (
+          <div className="flex justify-center items-center gap-5">
+            <button
+              onClick={() => setKey("working")}
+              className="px-6 py-2 bg-white text-primary rounded-lg font-bold transform hover:-translate-y-1 transition duration-400"
+            >
+              Working
+            </button>
             <HyperText
               className="text-4xl font-bold text-black dark:text-white"
               text="Running"
             />
-            <ActivityCalendar
-              data={runData}
-              theme={runTheme}
-              weekStart={1}
-              showWeekdayLabels={["mon"]}
-              style={{ width: "100%" }}
-              renderBlock={(block, activity: any) =>
-                React.cloneElement(block, {
-                  "data-tooltip-id": "react-tooltip",
-                  "data-tooltip-html": `${
-                    activity.nameSuffix
-                      ? activity.date + " " + activity.nameSuffix
-                      : activity.date
-                  }`,
-                })
-              }
-            />
           </div>
-        ) : null}
+        )}
       </div>
+      {key === "working" ? (
+        <ActivityCalendar
+          data={workData}
+          theme={theme}
+          weekStart={1}
+          showWeekdayLabels={["mon"]}
+          renderBlock={(block, activity: any) =>
+            React.cloneElement(block, {
+              "data-tooltip-id": "react-tooltip",
+              "data-tooltip-html": `${
+                activity.overTimeDuration > 0
+                  ? activity.date + " " + activity.overTimeDuration + "h"
+                  : activity.date
+              }`,
+            })
+          }
+        />
+      ) : (
+        <ActivityCalendar
+          data={runData}
+          theme={runTheme}
+          weekStart={1}
+          showWeekdayLabels={["mon"]}
+          style={{ width: "100%" }}
+          renderBlock={(block, activity: any) =>
+            React.cloneElement(block, {
+              "data-tooltip-id": "react-tooltip",
+              "data-tooltip-html": `${
+                activity.nameSuffix
+                  ? activity.date + " " + activity.nameSuffix
+                  : activity.date
+              }`,
+            })
+          }
+        />
+      )}
       <ReactTooltip id="react-tooltip" />
     </section>
   );
