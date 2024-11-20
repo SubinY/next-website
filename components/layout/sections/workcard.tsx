@@ -179,7 +179,7 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
                 <th className="p-3 font-bold">Duration</th>
               </tr>
             </thead>
-            <tbody className="bg-white text-sm md:text-xl">
+            <tbody className="bg-white text-sm md:text-xl dark:text-black">
               {runData.map((item, index) => (
                 <tr key={index}>
                   <td className="p-3 border">{item.date}</td>
