@@ -5,8 +5,6 @@ import { WorkCardSeciton } from "@/components/layout/sections/workcard";
 import { SkillSection } from "@/components/layout/sections/skill";
 import { ProjectSection } from "@/components/layout/sections/project";
 import { EmptySection } from "@/components/layout/sections/empty";
-import { findRunData } from "@/server/controller/run";
-import { findWorkData } from "@/server/controller/work";
 import Script from "next/script";
 import { siteConfig } from "@/config/site";
 
@@ -36,16 +34,13 @@ export const metadata = {
 };
 
 export default async function Home() {
-  const rData = await findRunData();
-  const wData = await findWorkData();
-
   return (
     <>
       {/* <Script src="https://files.cnblogs.com/files/mggahui/leader-line.min.js"></Script> */}
       {/* <Script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></Script> */}
       <BgMotionSection />
       <ProfileSection />
-      <WorkCardSeciton rData={rData} wData={wData} />
+      <WorkCardSeciton />
       <SkillSection />
       <ProjectSection />
       <EmptySection />

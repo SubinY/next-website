@@ -2,11 +2,11 @@
 import { ActivityCalendar } from "react-activity-calendar";
 import { HeroHighlight, Highlight } from "../../ui/hero-highlight";
 import { HyperText } from "../../ui/hyper-text";
-// import { GET as runGet } from "../../../app/api/run/route";
+import { GET as workGet } from "../../../app/api/work/route";
 import dayjs from "./../../../node_modules/dayjs/esm/index";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 type ActionType = "working" | "running";
 
@@ -16,18 +16,6 @@ const theme = {
 const runTheme = {
   light: ["hsl(0, 0%, 100%)", "rebeccapurple"],
 };
-
-// export async function getServerSideProps(context: any) {
-//   try {
-//     console.log('111111')
-//     const data = await runGet();
-//     console.log(data, '2222222')
-//     return { props: { data } };
-//   } catch (error) {
-//     // 处理错误，可以返回错误信息或进行其他操作
-//     return { props: { error: 'Failed to fetch data' } };
-//   }
-// }
 
 function getLevel(metre: number): number {
   if (metre < 2000) {
@@ -43,18 +31,69 @@ function getLevel(metre: number): number {
   }
 }
 
-export const WorkCardSeciton = ({ rData, wData }: any) => {
+export const WorkCardSeciton = () => {
   const [key, setKey] = useState<ActionType>("working");
+  const [workData, setWorkData] = useState<any[]>([]);
+  const [runData, setRunData] = useState<any[]>([]);
 
-  const workData = [
-    { date: "2024-01-01", overTimeDuration: -1 },
-    ...wData,
-  ]?.map((item: any) => ({
-    ...item,
-    level:
-      item.overTimeDuration === -1 ? 0 : item.overTimeDuration <= 8 ? 1 : 4, // 今天不统计
-    count: 1,
-  })) || [{ date: "2024-01-01", level: 0, count: 0 }];
+  useEffect(() => {
+    async function workInit() {
+      try {
+        const wRes: any = await fetch("/api/work", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          } as any,
+        });
+
+        const { wData } = await wRes.json();
+
+        setWorkData(
+          [{ date: "2024-01-01", overTimeDuration: -1 }, ...wData]?.map(
+            (item: any) => ({
+              ...item,
+              level:
+                item.overTimeDuration === -1
+                  ? 0
+                  : item.overTimeDuration <= 8
+                  ? 1
+                  : 4, // 今天不统计
+              count: 1,
+            })
+          ) || [{ date: "2024-01-01", level: 0, count: 0 }]
+        );
+      } catch (error) {
+        console.log("/api/work error ", error);
+      }
+    }
+    async function runInit() {
+      try {
+        const rRes: any = await fetch("/api/run", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          } as any,
+        });
+
+        const { rData } = await rRes.json();
+
+        setRunData(
+          filterByUniqueStartTime(rData)?.map((item: any) => ({
+            ...item,
+            date: item.date ?? dayjs(+item.endTime).format("YYYY-MM-DD"),
+            level:
+              item.startTime === item.endTime ? 0 : getLevel(item.kilometre), // 今天不统计
+            count: item.startTime === item.endTime ? 0 : 1,
+          })) || []
+        );
+      } catch (error) {
+        console.log("/api/run error ", error);
+      }
+    }
+
+    workInit();
+    runInit();
+  }, []);
 
   // // 用于日历
   // const runData = [...rData, { date: "2024-01-01" }]
@@ -77,14 +116,6 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
       return false; // 跳过这个元素，因为它是重复的
     });
   };
-
-  const runData =
-    filterByUniqueStartTime(rData)?.map((item: any) => ({
-      ...item,
-      date: item.date ?? dayjs(+item.endTime).format("YYYY-MM-DD"),
-      level: item.startTime === item.endTime ? 0 : getLevel(item.kilometre), // 今天不统计
-      count: item.startTime === item.endTime ? 0 : 1,
-    })) || [];
 
   const calcMin = (time: number) => {
     let minutes = Math.floor(time / 60); // 使用 Math.floor 来向下取整得到完整的分钟数
@@ -136,6 +167,7 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
         <div className="flex justify-center">
           <ActivityCalendar
             data={workData}
+            loading={!workData?.length}
             theme={theme}
             weekStart={1}
             showWeekdayLabels={["mon"]}
@@ -181,12 +213,13 @@ export const WorkCardSeciton = ({ rData, wData }: any) => {
             </thead>
             <tbody className="bg-white text-sm md:text-xl dark:text-black">
               {runData.map((item, index) => (
-                <tr key={index}>
-                  <td className="p-3 border">{item.date}</td>
-                  <td className="p-3 border">{item.nameSuffix}</td>
-                  <td className="p-3 border">{calcMin(+item.duration)}</td>
-                </tr>
-              ))}
+                    <tr key={index}>
+                      <td className="p-3 border">{item.date}</td>
+                      <td className="p-3 border">{item.nameSuffix}</td>
+                      <td className="p-3 border">{calcMin(+item.duration)}</td>
+                    </tr>
+                  ))
+               }
             </tbody>
           </table>
         </div>

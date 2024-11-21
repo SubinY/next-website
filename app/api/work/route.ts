@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { setWorkData } from "@/server/controller/work";
+import { setWorkData, findWorkData } from "@/server/controller/work";
 
 enum WorkStatus {
   WORKING = 1,
@@ -21,10 +21,10 @@ export async function POST(req: NextRequest) {
       const { status } = await req.json();
       if (status === WorkStatus.WORKING) {
         await setWorkData({ onTime: Date.now() });
-        return NextResponse.json({ msg: '上班成功' });
+        return NextResponse.json({ msg: "上班成功" });
       } else if (status === WorkStatus.NOT_WORKING) {
         await setWorkData({ offTime: Date.now() });
-        return NextResponse.json({ msg: '下班成功' });
+        return NextResponse.json({ msg: "下班成功" });
       }
     } else {
       return NextResponse.json(
@@ -35,4 +35,14 @@ export async function POST(req: NextRequest) {
   } catch (e) {
     return NextResponse.json({ error: "failed" }, { status: 500 });
   }
+}
+
+export async function GET(req: NextRequest) {
+  return new Promise(async (resolve) => {
+    try {
+      return resolve(NextResponse.json({ wData: await findWorkData() }));
+    } catch (e) {
+      return resolve(NextResponse.json({ error: "failed" }, { status: 500 }));
+    }
+  });
 }
