@@ -165,7 +165,7 @@ export const WorkCardSeciton = () => {
       </div>
       <div
         className="flex justify-center"
-        style={{ display: key === "working" ? 'block' : 'none' }}
+        style={{ display: key === "working" ? 'flex' : 'none' }}
       >
         <ActivityCalendar
           data={workData}
