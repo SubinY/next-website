@@ -38,11 +38,9 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
-  return new Promise(async (resolve) => {
-    try {
-      return resolve(NextResponse.json({ wData: await findWorkData() }));
-    } catch (e) {
-      return resolve(NextResponse.json({ error: "failed" }, { status: 500 }));
-    }
-  });
+  try {
+    return NextResponse.json({ wData: await findWorkData() });
+  } catch (e) {
+    return NextResponse.json({ error: "failed" }, { status: 500 });
+  }
 }
