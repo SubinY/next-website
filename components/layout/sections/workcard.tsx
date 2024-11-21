@@ -163,67 +163,70 @@ export const WorkCardSeciton = () => {
           </div>
         )}
       </div>
-      {key === "working" ? (
-        <div className="flex justify-center">
-          <ActivityCalendar
-            data={workData}
-            loading={!workData?.length}
-            theme={theme}
-            weekStart={1}
-            showWeekdayLabels={["mon"]}
-            renderBlock={(block, activity: any) =>
-              React.cloneElement(block, {
-                "data-tooltip-id": "react-tooltip",
-                "data-tooltip-html": `${
-                  activity.overTimeDuration > 0
-                    ? activity.date + " " + activity.overTimeDuration + "h"
-                    : activity.date
-                }`,
-              })
-            }
-          />
-        </div>
-      ) : (
-        // <ActivityCalendar
-        //   data={runData}
-        //   theme={runTheme}
-        //   weekStart={1}
-        //   showWeekdayLabels={["mon"]}
-        //   style={{ width: "100%" }}
-        //   renderBlock={(block, activity: any) =>
-        //     React.cloneElement(block, {
-        //       "data-tooltip-id": "react-tooltip",
-        //       "data-tooltip-html": `${
-        //         activity.nameSuffix
-        //           ? activity.date + " " + activity.nameSuffix
-        //           : activity.date
-        //       }`,
-        //     })
-        //   }
-        // />
-        <div className="overflow-x-auto max-h-[15rem]">
-          {/* 包裹表格以处理水平溢出，并限制最大高度 */}
-          <table className="w-full text-left border-collapse">
-            <thead className="bg-primary sticky top-0 z-10">
-              <tr>
-                <th className="p-3 font-bold">Date</th>
-                <th className="p-3 font-bold">KM</th>
-                <th className="p-3 font-bold">Duration</th>
+      <div
+        className="flex justify-center"
+        style={{ display: key === "working" ? 'block' : 'none' }}
+      >
+        <ActivityCalendar
+          data={workData}
+          loading={!workData?.length}
+          theme={theme}
+          weekStart={1}
+          showWeekdayLabels={["mon"]}
+          renderBlock={(block, activity: any) =>
+            React.cloneElement(block, {
+              "data-tooltip-id": "react-tooltip",
+              "data-tooltip-html": `${
+                activity.overTimeDuration > 0
+                  ? activity.date + " " + activity.overTimeDuration + "h"
+                  : activity.date
+              }`,
+            })
+          }
+        />
+      </div>
+      <div
+        className="overflow-x-auto max-h-[15rem]"
+        style={{ display: key === "running" ? 'block' : 'none' }}
+      >
+        {/* 包裹表格以处理水平溢出，并限制最大高度 */}
+        <table className="w-full text-left border-collapse">
+          <thead className="bg-primary sticky top-0 z-10">
+            <tr>
+              <th className="p-3 font-bold">Date</th>
+              <th className="p-3 font-bold">KM</th>
+              <th className="p-3 font-bold">Duration</th>
+            </tr>
+          </thead>
+          <tbody className="bg-white text-sm md:text-xl dark:text-black">
+            {runData.map((item, index) => (
+              <tr key={index}>
+                <td className="p-3 border">{item.date}</td>
+                <td className="p-3 border">{item.nameSuffix}</td>
+                <td className="p-3 border">{calcMin(+item.duration)}</td>
               </tr>
-            </thead>
-            <tbody className="bg-white text-sm md:text-xl dark:text-black">
-              {runData.map((item, index) => (
-                    <tr key={index}>
-                      <td className="p-3 border">{item.date}</td>
-                      <td className="p-3 border">{item.nameSuffix}</td>
-                      <td className="p-3 border">{calcMin(+item.duration)}</td>
-                    </tr>
-                  ))
-               }
-            </tbody>
-          </table>
-        </div>
-      )}
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* <ActivityCalendar
+          data={runData}
+          theme={runTheme}
+          weekStart={1}
+          showWeekdayLabels={["mon"]}
+          style={{ width: "100%" }}
+          renderBlock={(block, activity: any) =>
+            React.cloneElement(block, {
+              "data-tooltip-id": "react-tooltip",
+              "data-tooltip-html": `${
+                activity.nameSuffix
+                  ? activity.date + " " + activity.nameSuffix
+                  : activity.date
+              }`,
+            })
+          }
+        /> */}
       <ReactTooltip id="react-tooltip" />
     </section>
   );

@@ -102,14 +102,14 @@ export const findRunData = async () => {
       const runData = await getKeepRunData();
       await RunModel.truncate({ cascade: true, restartIdentity: true });
       const rawData = [
-        {
-          startTime: dayjs(today).valueOf(),
-          endTime: dayjs(today).valueOf(),
-          duration: 0,
-          kilometre: 0,
-          nameSuffix: "",
-          amapWaterMark: "",
-        },
+        // {
+        //   startTime: dayjs(today).valueOf(),
+        //   endTime: dayjs(today).valueOf(),
+        //   duration: 0,
+        //   kilometre: 0,
+        //   nameSuffix: "",
+        //   amapWaterMark: "",
+        // },
         ...runData,
       ];
       const insertedRuns = await RunModel.bulkCreate(rawData);
