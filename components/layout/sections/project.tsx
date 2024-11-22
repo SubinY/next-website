@@ -50,7 +50,7 @@ const Items = [
     relateId: ["vueId", "nodeId"],
     description:
       "Multi-client unified material platform, visual UI interface, and supporting commands help teams quickly develop materials",
-    href: "http://101.33.228.57",
+    href: "http://fe.gymsummer.com",
     cta: "Learn more",
     className: "col-span-3 lg:col-span-2 lg:row-span-3",
     background: (

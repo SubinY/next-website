@@ -21,7 +21,9 @@ export const metadata = {
     type: "website",
     url: "https://github.com/subinY/next-website",
     title: "GS - website",
-    description: "Free Shadcn landing page for developers",
+    description: siteConfig.description[0],
+    siteName: siteConfig.name,
+
     // images: [
     //   {
     //     url: "https://res.cloudinary.com/dbzv9xfjp/image/upload/v1723499276/og-images/shadcn-vue.jpg",
