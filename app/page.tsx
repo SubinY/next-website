@@ -7,6 +7,8 @@ import { ProjectSection } from "@/components/layout/sections/project";
 import { EmptySection } from "@/components/layout/sections/empty";
 import Script from "next/script";
 import { siteConfig } from "@/config/site";
+import { FinanceSection } from "@/components/layout/sections/finance";
+
 
 export const metadata = {
   title: siteConfig.name,
@@ -42,7 +44,8 @@ export default async function Home() {
       {/* <Script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></Script> */}
       <BgMotionSection />
       <ProfileSection />
-      <WorkCardSeciton />
+      <FinanceSection />
+      {/* <WorkCardSeciton /> */}
       <SkillSection />
       <ProjectSection />
       <EmptySection />
