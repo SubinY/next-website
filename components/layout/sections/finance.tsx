@@ -1,7 +1,8 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { AnimatedGradient } from "@/components/ui/animated-gradient-with-svg";
+import dayjs from "dayjs";
 
 interface BentoCardProps {
   title: string;
@@ -71,6 +72,45 @@ const BentoCard: React.FC<BentoCardProps> = ({
 };
 
 export const FinanceSection: React.FC = () => {
+  const [data, setData] = useState<any>({
+    monthTotal: 0,
+    dailyTotal: 0,
+    budgetRadio: 0,
+  });
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await fetch("https://api.coze.cn/v1/workflow/run", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer pat_Z3QBeLnkotW0vUfXLfGgtd7v25sKErqC7oBHEBKy9zEAG6UCGyG1IOPX6SGyKOLD",
+          },
+          body: JSON.stringify({
+            workflow_id: "7479356189769760808",
+            parameters: {
+              date: dayjs().format("YYYYMM"),
+              budget: 5400,
+            },
+          }),
+        });
+
+        const { data } = await res.json();
+        const dataJson = JSON.parse(data);
+        dataJson.budgetRadio = (dataJson.budgetRadio * 100).toFixed(0);
+        if (dataJson.recentDate !== dayjs().format("YYYYMMDD")) {
+          dataJson.dailyTotal = 0;
+        }
+        setData(dataJson);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData();
+  }, []);
+
   return (
     <section className="w-full px-4 lg:px-8 xl:px-32 2xl:px-44 relative z-10 my-4 py-12 sm:py-16">
       <div className="relative -top-10">
@@ -83,7 +123,7 @@ export const FinanceSection: React.FC = () => {
           <div className="md:col-span-2">
             <BentoCard
               title="Monthly expenses"
-              value="￥1,234,567"
+              value={`￥${data.monthTotal}`}
               // subtitle="15% increase from last month"
               colors={["#3B82F6", "#60A5FA", "#93C5FD"]}
               delay={0.2}
@@ -91,7 +131,7 @@ export const FinanceSection: React.FC = () => {
           </div>
           <BentoCard
             title="Budget ratio"
-            value="3.45%"
+            value={`${data.budgetRadio}%`}
             // subtitle="Daily signups"
             colors={["#60A5FA", "#34D399", "#93C5FD"]}
             delay={0.4}
@@ -99,7 +139,9 @@ export const FinanceSection: React.FC = () => {
           <div className="md:col-span-3">
             <BentoCard
               title="Daily expenses"
-              value="￥3.45"
+              value={`${
+                data.dailyTotal ? "￥" + data.dailyTotal : "Data is not recent"
+              }`}
               // subtitle="0.5% increase from last week"
               colors={["#F59E0B", "#A78BFA", "#FCD34D"]}
               delay={0.6}
@@ -128,7 +170,6 @@ export const FinanceSection: React.FC = () => {
     </section>
   );
 };
-
 
 // https://api.coze.cn/v1/workflow/run
 
