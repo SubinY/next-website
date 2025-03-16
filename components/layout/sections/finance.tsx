@@ -138,9 +138,7 @@ export const FinanceSection: React.FC = () => {
           <div className="md:col-span-3">
             <BentoCard
               title="Daily expenses"
-              value={`${
-                data.dailyTotal ? "￥" + data.dailyTotal : "Data is not recent"
-              }`}
+              value={`${"￥" + data.dailyTotal}`}
               subtitle={`Latest data from ${dayjs(data.recentDate).format(
                 "YYYY/MM/DD"
               )}`}
