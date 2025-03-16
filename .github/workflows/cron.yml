@@ -2,7 +2,7 @@ name: Daily Coze Update
 
 on:
   schedule:
-    - cron: '25 7 * * *'  # 每天 UTC 00:00 执行
+    - cron: '30 7 * * *'  # 每天 UTC 00:00 执行
   workflow_dispatch:      # 允许手动触发
 
 jobs:
