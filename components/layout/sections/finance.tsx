@@ -124,7 +124,7 @@ export const FinanceSection: React.FC = () => {
             <BentoCard
               title="Monthly expenses"
               value={`￥${data.monthTotal}`}
-              // subtitle="15% increase from last month"
+              subtitle={`Data on ${dayjs().format("MMMM")}`}
               colors={["#3B82F6", "#60A5FA", "#93C5FD"]}
               delay={0.2}
             />
@@ -132,7 +132,6 @@ export const FinanceSection: React.FC = () => {
           <BentoCard
             title="Budget ratio"
             value={`${data.budgetRadio}%`}
-            // subtitle="Daily signups"
             colors={["#60A5FA", "#34D399", "#93C5FD"]}
             delay={0.4}
           />
@@ -142,7 +141,9 @@ export const FinanceSection: React.FC = () => {
               value={`${
                 data.dailyTotal ? "￥" + data.dailyTotal : "Data is not recent"
               }`}
-              // subtitle="0.5% increase from last week"
+              subtitle={`Latest data from ${dayjs(data.recentDate).format(
+                "YYYY/MM/DD"
+              )}`}
               colors={["#F59E0B", "#A78BFA", "#FCD34D"]}
               delay={0.6}
             />
