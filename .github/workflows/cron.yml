@@ -2,21 +2,17 @@ name: Daily Coze Update
 
 on:
   schedule:
-    - cron: '37 15 * * *'  # 每天 UTC 00:00 执行
+    - cron: '42 15 * * *'  # 北京时间 15:25 (UTC+8 07:25)
   workflow_dispatch:      # 允许手动触发
 
 jobs:
   update-coze:
     runs-on: ubuntu-latest
     steps:
-      - name: Call Vercel API endpoint
+      - name: Call Coze API
         run: |
+          DATE=$(date +%Y%m)
           curl -X POST "https://api.coze.cn/v1/workflow/run" \
           -H "Content-Type: application/json" \
           -H "Authorization: Bearer pat_Z3QBeLnkotW0vUfXLfGgtd7v25sKErqC7oBHEBKy9zEAG6UCGyG1IOPX6SGyKOLD" \
-          -d '{
-            "workflow_id": "7480889381671174155",
-            "parameters": {
-              "date": "'$(date +%Y%m')'"
-            }
-          }'
+          -d "{\"workflow_id\": \"7480889381671174155\", \"parameters\": {\"date\": \"$DATE\"}}"
