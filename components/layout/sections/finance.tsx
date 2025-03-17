@@ -92,7 +92,7 @@ export const FinanceSection: React.FC = () => {
             workflow_id: "7479356189769760808",
             parameters: {
               date: dayjs().format("YYYYMM"),
-              budget: 5400,
+              budget: 5700,
             },
           }),
         });
