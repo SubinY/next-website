@@ -92,7 +92,7 @@ export const FinanceSection: React.FC = () => {
             workflow_id: "7479356189769760808",
             parameters: {
               date: dayjs().format("YYYYMM"),
-              budget: 5400,
+              budget: 5700,
             },
           }),
         });
@@ -100,9 +100,9 @@ export const FinanceSection: React.FC = () => {
         const { data } = await res.json();
         const dataJson = JSON.parse(data);
         dataJson.budgetRadio = (dataJson.budgetRadio * 100).toFixed(0);
-        if (dataJson.recentDate !== dayjs().format("YYYYMMDD")) {
-          dataJson.dailyTotal = 0;
-        }
+        // if (dataJson.recentDate !== dayjs().format("YYYYMMDD")) {
+        //   dataJson.dailyTotal = 0;
+        // }
         setData(dataJson);
       } catch (error) {
         console.error(error);
@@ -169,14 +169,3 @@ export const FinanceSection: React.FC = () => {
     </section>
   );
 };
-
-// https://api.coze.cn/v1/workflow/run
-
-// {
-//   "workflow_id": "7479356189769760808",
-//   "parameters": {
-//       "date":"202503"
-//   }
-// }
-
-// Authorization: Bearer pat_Z3QBeLnkotW0vUfXLfGgtd7v25sKErqC7oBHEBKy9zEAG6UCGyG1IOPX6SGyKOLD
