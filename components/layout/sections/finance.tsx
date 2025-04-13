@@ -86,7 +86,7 @@ export const FinanceSection: React.FC = () => {
           headers: {
             "Content-Type": "application/json",
             Authorization:
-              "Bearer pat_Z3QBeLnkotW0vUfXLfGgtd7v25sKErqC7oBHEBKy9zEAG6UCGyG1IOPX6SGyKOLD",
+              "Bearer pat_gcqyJlPUruKgr4ekZ6XI8mf0wHqsmdXE0uKW8YsXv8jhKmho5ZKiJNqvcjhE4JnC",
           },
           body: JSON.stringify({
             workflow_id: "7479356189769760808",
