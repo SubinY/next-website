@@ -14,5 +14,5 @@ jobs:
           DATE=$(date +%Y%m)
           curl -X POST "https://api.coze.cn/v1/workflow/run" \
           -H "Content-Type: application/json" \
-          -H "Authorization: Bearer pat_Z3QBeLnkotW0vUfXLfGgtd7v25sKErqC7oBHEBKy9zEAG6UCGyG1IOPX6SGyKOLD" \
+          -H "Authorization: Bearer pat_gcqyJlPUruKgr4ekZ6XI8mf0wHqsmdXE0uKW8YsXv8jhKmho5ZKiJNqvcjhE4JnC" \
           -d "{\"workflow_id\": \"7480889381671174155\", \"parameters\": {\"date\": \"$DATE\"}}"
